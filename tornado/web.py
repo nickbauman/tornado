@@ -2187,7 +2187,7 @@ class ErrorHandler(RequestHandler):
 
 
 class RedirectHandler(RequestHandler):
-    """Redirects the client to the given URL for all GET requests.
+    """Redirects the client to the given URL for all GET and POST requests.
 
     You should provide the keyword argument ``url`` to the handler, e.g.::
 
@@ -2217,6 +2217,9 @@ class RedirectHandler(RequestHandler):
 
     def get(self, *args):
         self.redirect(self._url.format(*args), permanent=self._permanent)
+    
+    def post(self, *args):
+        self.redirect(self._url.format(*args), status=307)
 
 
 class StaticFileHandler(RequestHandler):
